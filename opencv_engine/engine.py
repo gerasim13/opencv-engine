@@ -79,14 +79,14 @@ class Engine(BaseEngine):
         cv.SetData(imagefiledata, buffer, len(buffer))
         img0 = cv.DecodeImageM(imagefiledata, cv.CV_LOAD_IMAGE_UNCHANGED)
 
-        if FORMATS[self.extension] == 'JPEG':
-            try:
+        try:
+            if FORMATS[self.extension] == 'JPEG':
                 info = JpegFile.fromString(buffer).get_exif()
                 if info:
                     self.exif = info.data
                     self.exif_marker = info.marker
-            except Exception:
-                pass
+        except Exception:
+            pass
 
         return img0
 
